@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+
+
+<head>
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" integrity="sha256-2YQRJMXD7pIAPHiXr0s+vlRWA7GYJEK0ARns7k2sbHY="
+        crossorigin="anonymous" />
+
+    <style>
+        .outer {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            /* bring your own prefixes */
+            transform: translate(-50%, -50%);
+        }
+        
+        body {
+            font-family: 'Oxygen', sans-serif;
+            text-align: center;
+        }
+        
+        h1 {
+            font-family: 'Lobster', cursive;
+        }
+
+        #clockdiv {
+            color: black;
+            display: inline-block;
+            font-weight: 100;
+            text-align: center;
+            font-size: 30px;
+        }
+        
+        #clockdiv>div {
+            padding: 5px;
+            border-radius: 3px;
+            background: #FFFFFF;
+            display: inline-block;
+        }
+        
+        #clockdiv div>span {
+            border-radius: 3px;
+            display: inline-block;
+        }
+        
+        .smalltext {
+            padding-top: 5px;
+            font-size: 16px;
+        }
+    </style>
+
+
+    <link href="https://fonts.googleapis.com/css?family=Lobster|Oxygen" rel="stylesheet">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MD Hack Club</title>
+</head>
+
+
+<body style="text-align: center">
+
+    <div class="outer">
+
+        <div>
+
+            <h1>New Domain = New Design</h1>
+            <p>Time for a new website? I agree.</p>
+
+            <div id="clockdiv">
+                <div>
+                    <span class="days"></span>
+                    <div class="smalltext">Days</div>
+                </div>
+                <div>
+                    <span class="hours"></span>
+                    <div class="smalltext">Hours</div>
+                </div>
+                <div>
+                    <span class="minutes"></span>
+                    <div class="smalltext">Minutes</div>
+                </div>
+                <div>
+                    <span class="seconds"></span>
+                    <div class="smalltext">Seconds</div>
+                </div>
+            </div>
+
+            <br><br>
+            <p>At this time, we are not accepting any applications (unless you text our Facebook page). Email Wootton President at <a href="mailto:jiang@mingjie.info">jiang@mingjie.info</a> if you have any special concerns.</p>
+            <a class="button" href="https://facebook.com/mdhackclub">Facebook</a>
+            &emsp;
+            <a class="button" href="https://twitter.com/mdhackclub">Twitter</a>
+        </div>
+    </div>
+    <script>
+        function getTimeRemaining(endtime) {
+            var t = Date.parse(endtime) - Date.parse(new Date());
+            var seconds = Math.floor((t / 1000) % 60);
+            var minutes = Math.floor((t / 1000 / 60) % 60);
+            var hours = Math.floor((t / (1000 * 60 * 60)) % 24);
+            var days = Math.floor(t / (1000 * 60 * 60 * 24));
+            return {
+                'total': t,
+                'days': days,
+                'hours': hours,
+                'minutes': minutes,
+                'seconds': seconds
+            };
+        }
+
+        function initializeClock(id, endtime) {
+            var clock = document.getElementById(id);
+            var daysSpan = clock.querySelector('.days');
+            var hoursSpan = clock.querySelector('.hours');
+            var minutesSpan = clock.querySelector('.minutes');
+            var secondsSpan = clock.querySelector('.seconds');
+
+            function updateClock() {
+                var t = getTimeRemaining(endtime);
+
+                daysSpan.innerHTML = t.days;
+                hoursSpan.innerHTML = ('0' + t.hours).slice(-2);
+                minutesSpan.innerHTML = ('0' + t.minutes).slice(-2);
+                secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
+
+                if (t.total <= 0) {
+                    clearInterval(timeinterval);
+                }
+            }
+
+            updateClock();
+            var timeinterval = setInterval(updateClock, 1000);
+        }
+
+        var deadline = "Sat Apr 1 2017 12:00:00 GMT-0400 (EDT)";
+        initializeClock('clockdiv', deadline);
+    </script>
+</body>
